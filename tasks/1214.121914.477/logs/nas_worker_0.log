@@ -1,0 +1,17 @@
+2024-12-14 12:19:17,178 INFO Model was created.
+2024-12-14 12:19:20,000 INFO worker id [0], epoch [1/500], train step [  0/196], loss [   2.324,    2.324], lr [   0.0250000],  time pre batch [1.797s] , total mean time per batch [1.797s]
+2024-12-14 12:20:09,214 INFO worker id [0], epoch [1/500], train step [ 10/196], loss [   2.352,    2.331], lr [   0.0250000],  time pre batch [4.920s] , total mean time per batch [4.920s]
+2024-12-14 12:20:49,570 INFO worker id [0], epoch [1/500], train step [ 20/196], loss [   2.341,    2.326], lr [   0.0250000],  time pre batch [4.035s] , total mean time per batch [4.478s]
+2024-12-14 12:21:19,665 INFO worker id [0], epoch [1/500], train step [ 30/196], loss [   2.267,    2.335], lr [   0.0250000],  time pre batch [3.008s] , total mean time per batch [3.988s]
+2024-12-14 12:21:46,437 INFO worker id [0], epoch [1/500], train step [ 40/196], loss [   2.405,    2.335], lr [   0.0250000],  time pre batch [2.676s] , total mean time per batch [3.660s]
+2024-12-14 12:22:13,927 INFO worker id [0], epoch [1/500], train step [ 50/196], loss [   2.421,    2.343], lr [   0.0250000],  time pre batch [2.748s] , total mean time per batch [3.478s]
+2024-12-14 12:22:40,571 INFO worker id [0], epoch [1/500], train step [ 60/196], loss [   2.223,    2.359], lr [   0.0250000],  time pre batch [2.663s] , total mean time per batch [3.342s]
+2024-12-14 12:23:03,663 INFO Shutdown urgently.
+2024-12-14 12:23:03,663 INFO Shutdown urgently.
+2024-12-14 12:23:03,663 INFO Shutdown urgently.
+2024-12-14 12:23:03,663 INFO Shutdown urgently.
+2024-12-14 12:23:03,663 INFO Shutdown urgently.
+2024-12-14 12:23:03,663 INFO Shutdown urgently.
+2024-12-14 12:23:03,663 INFO Shutdown urgently.
+2024-12-14 12:23:03,663 INFO Shutdown urgently.
+2024-12-14 12:23:04,012 INFO Shutdown urgently.

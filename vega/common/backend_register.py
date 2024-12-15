@@ -40,6 +40,7 @@ def set_backend(backend='pytorch', device_category='GPU'):
     # CUDA visible
     if 'CUDA_VISIBLE_DEVICES' in os.environ:
         os.environ['DEVICE_CATEGORY'] = 'GPU'
+        print("using GPU")
     elif 'NPU_VISIBLE_DEVICES' in os.environ:
         os.environ['DEVICE_CATEGORY'] = 'NPU'
 
@@ -60,6 +61,7 @@ def set_backend(backend='pytorch', device_category='GPU'):
         os.environ['DEVICE_CATEGORY'] = device_category.upper()
         from vega.common.general import General
         General.device_category = device_category
+        # print(f"device_category is {device_category}")
 
     # backend
     if backend.lower() in ['pytorch', "p"]:

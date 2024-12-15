@@ -1,0 +1,490 @@
+{
+    "_steps_": [
+        {
+            "step_name": "nas",
+            "end_time": null,
+            "message": null,
+            "num_epochs": 500,
+            "num_models": 1,
+            "start_time": "2024-12-14 11:44:51",
+            "status": "running"
+        },
+        {
+            "step_name": "fully_train",
+            "status": "unstarted"
+        }
+    ],
+    "nas": [
+        {
+            "checkpoint_path": null,
+            "current_epoch": 1,
+            "desc": {
+                "type": "SearchSpace",
+                "super_network": {
+                    "type": "CARSDartsNetwork",
+                    "stem": {
+                        "type": "PreOneStem",
+                        "init_channels": 16,
+                        "stem_multi": 3
+                    },
+                    "head": {
+                        "type": "LinearClassificationHead"
+                    },
+                    "init_channels": 16,
+                    "num_classes": 10,
+                    "auxiliary": false,
+                    "search": true,
+                    "cells": {
+                        "modules": [
+                            "normal",
+                            "normal",
+                            "reduce",
+                            "normal",
+                            "normal",
+                            "reduce",
+                            "normal",
+                            "normal"
+                        ],
+                        "normal": {
+                            "type": "NormalCell",
+                            "steps": 4,
+                            "genotype": [
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    2,
+                                    0
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    2,
+                                    1
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    3,
+                                    0
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    3,
+                                    1
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    3,
+                                    2
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    4,
+                                    0
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    4,
+                                    1
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    4,
+                                    2
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    4,
+                                    3
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    5,
+                                    0
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    5,
+                                    1
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    5,
+                                    2
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    5,
+                                    3
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    5,
+                                    4
+                                ]
+                            ],
+                            "concat": [
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        },
+                        "reduce": {
+                            "type": "ReduceCell",
+                            "steps": 4,
+                            "genotype": [
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    2,
+                                    0
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    2,
+                                    1
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    3,
+                                    0
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    3,
+                                    1
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    3,
+                                    2
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    4,
+                                    0
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    4,
+                                    1
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    4,
+                                    2
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    4,
+                                    3
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    5,
+                                    0
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    5,
+                                    1
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    5,
+                                    2
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    5,
+                                    3
+                                ],
+                                [
+                                    [
+                                        "none",
+                                        "max_pool_3x3",
+                                        "avg_pool_3x3",
+                                        "skip_connect",
+                                        "sep_conv_3x3",
+                                        "sep_conv_5x5",
+                                        "dil_conv_3x3",
+                                        "dil_conv_5x5"
+                                    ],
+                                    5,
+                                    4
+                                ]
+                            ],
+                            "concat": [
+                                2,
+                                3,
+                                4,
+                                5
+                            ]
+                        }
+                    }
+                },
+                "modules": [
+                    "super_network"
+                ]
+            },
+            "end_time": null,
+            "hps": {},
+            "message": null,
+            "model_path": null,
+            "num_epochs": 1,
+            "objective_keys": [
+                "accuracy"
+            ],
+            "objectives": {},
+            "performance": {},
+            "rewards": [],
+            "runtime": null,
+            "start_time": "2024-12-14 11:44:51",
+            "status": "running",
+            "step_name": "nas",
+            "weights_file": null,
+            "worker_id": 0,
+            "original_rewards": null
+        }
+    ]
+}

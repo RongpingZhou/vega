@@ -1,0 +1,11 @@
+2024-12-14 15:02:29,245 INFO Model was created.
+2024-12-14 15:02:52,725 INFO worker id [0], epoch [1/500], train step [  0/196], loss [   2.514,    2.514], lr [   0.0250000],  time pre batch [10.040s] , total mean time per batch [10.040s]
+2024-12-14 15:03:31,653 INFO Shutdown urgently.
+2024-12-14 15:03:31,653 INFO Shutdown urgently.
+2024-12-14 15:03:31,654 INFO Shutdown urgently.
+2024-12-14 15:03:31,653 INFO Shutdown urgently.
+2024-12-14 15:03:31,654 INFO Shutdown urgently.
+2024-12-14 15:03:31,654 INFO Shutdown urgently.
+2024-12-14 15:03:31,654 INFO Shutdown urgently.
+2024-12-14 15:03:31,654 INFO Shutdown urgently.
+2024-12-14 15:03:36,513 INFO Shutdown urgently.

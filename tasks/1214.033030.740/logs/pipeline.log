@@ -1,0 +1,655 @@
+2024-12-14 03:30:32,917 INFO ------------------------------------------------
+2024-12-14 03:30:32,917 INFO   task id: 1214.033030.740
+2024-12-14 03:30:32,917 INFO ------------------------------------------------
+2024-12-14 03:30:32,918 INFO configure: {
+    "general": {
+        "backend": "pytorch",
+        "cluster": {}
+    },
+    "pipeline": [
+        "nas",
+        "fully_train"
+    ],
+    "nas": {
+        "pipe_step": {
+            "type": "SearchPipeStep"
+        },
+        "dataset": {
+            "type": "Cifar10",
+            "common": {
+                "data_path": "/cache/datasets/cifar10/",
+                "train_portion": 0.5,
+                "num_workers": 8,
+                "drop_last": false
+            },
+            "train": {
+                "shuffle": true,
+                "batch_size": 128
+            },
+            "val": {
+                "batch_size": 3500
+            }
+        },
+        "search_algorithm": {
+            "type": "CARSAlgorithm",
+            "policy": {
+                "num_individual": 8,
+                "start_ga_epoch": 50,
+                "ga_interval": 10,
+                "select_method": "uniform",
+                "warmup": 50
+            }
+        },
+        "search_space": {
+            "type": "SearchSpace",
+            "modules": [
+                "super_network"
+            ],
+            "super_network": {
+                "type": "CARSDartsNetwork",
+                "stem": {
+                    "type": "PreOneStem",
+                    "init_channels": 16,
+                    "stem_multi": 3
+                },
+                "head": {
+                    "type": "LinearClassificationHead"
+                },
+                "init_channels": 16,
+                "num_classes": 10,
+                "auxiliary": false,
+                "search": true,
+                "cells": {
+                    "modules": [
+                        "normal",
+                        "normal",
+                        "reduce",
+                        "normal",
+                        "normal",
+                        "reduce",
+                        "normal",
+                        "normal"
+                    ],
+                    "normal": {
+                        "type": "NormalCell",
+                        "steps": 4,
+                        "genotype": [
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                2,
+                                0
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                2,
+                                1
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                3,
+                                0
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                3,
+                                1
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                3,
+                                2
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                4,
+                                0
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                4,
+                                1
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                4,
+                                2
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                4,
+                                3
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                5,
+                                0
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                5,
+                                1
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                5,
+                                2
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                5,
+                                3
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                5,
+                                4
+                            ]
+                        ],
+                        "concat": [
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    },
+                    "reduce": {
+                        "type": "ReduceCell",
+                        "steps": 4,
+                        "genotype": [
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                2,
+                                0
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                2,
+                                1
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                3,
+                                0
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                3,
+                                1
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                3,
+                                2
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                4,
+                                0
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                4,
+                                1
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                4,
+                                2
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                4,
+                                3
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                5,
+                                0
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                5,
+                                1
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                5,
+                                2
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                5,
+                                3
+                            ],
+                            [
+                                [
+                                    "none",
+                                    "max_pool_3x3",
+                                    "avg_pool_3x3",
+                                    "skip_connect",
+                                    "sep_conv_3x3",
+                                    "sep_conv_5x5",
+                                    "dil_conv_3x3",
+                                    "dil_conv_5x5"
+                                ],
+                                5,
+                                4
+                            ]
+                        ],
+                        "concat": [
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    }
+                }
+            }
+        },
+        "trainer": {
+            "type": "Trainer",
+            "darts_template_file": "{default_darts_cifar10_template}",
+            "callbacks": "CARSTrainerCallback",
+            "epochs": 500,
+            "optimizer": {
+                "type": "SGD",
+                "params": {
+                    "lr": 0.025,
+                    "momentum": 0.9,
+                    "weight_decay": 0.0003
+                }
+            },
+            "lr_scheduler": {
+                "type": "CosineAnnealingLR",
+                "params": {
+                    "T_max": 500,
+                    "eta_min": 0.001
+                }
+            },
+            "grad_clip": 5.0,
+            "seed": 10,
+            "unrolled": true,
+            "loss": {
+                "type": "CrossEntropyLoss"
+            }
+        }
+    },
+    "fully_train": {
+        "pipe_step": {
+            "type": "TrainPipeStep",
+            "models_folder": "{local_base_path}/output/nas/"
+        },
+        "trainer": {
+            "ref": "nas.trainer",
+            "epochs": 600,
+            "lr_scheduler": {
+                "type": "CosineAnnealingLR",
+                "params": {
+                    "T_max": 600.0,
+                    "eta_min": 0
+                }
+            },
+            "loss": {
+                "type": "MixAuxiliaryLoss",
+                "params": {
+                    "loss_base": {
+                        "type": "CrossEntropyLoss"
+                    },
+                    "aux_weight": 0.4
+                }
+            },
+            "seed": 100,
+            "drop_path_prob": 0.2,
+            "type": "Trainer",
+            "darts_template_file": "{default_darts_cifar10_template}",
+            "optimizer": {
+                "type": "SGD",
+                "params": {
+                    "lr": 0.025,
+                    "momentum": 0.9,
+                    "weight_decay": 0.0003
+                }
+            },
+            "grad_clip": 5.0,
+            "unrolled": true
+        },
+        "evaluator": {
+            "type": "Evaluator",
+            "host_evaluator": {
+                "type": "HostEvaluator",
+                "metric": {
+                    "type": "accuracy"
+                }
+            }
+        },
+        "dataset": {
+            "ref": "nas.dataset",
+            "common": {
+                "train_portion": 1.0,
+                "data_path": "/cache/datasets/cifar10/",
+                "num_workers": 8,
+                "drop_last": false
+            },
+            "train": {
+                "batch_size": 96,
+                "shuffle": true,
+                "transforms": [
+                    {
+                        "type": "RandomCrop",
+                        "size": 32,
+                        "padding": 4
+                    },
+                    {
+                        "type": "RandomHorizontalFlip"
+                    },
+                    {
+                        "type": "ToTensor"
+                    },
+                    {
+                        "type": "Normalize",
+                        "mean": [
+                            0.49139968,
+                            0.48215827,
+                            0.44653124
+                        ],
+                        "std": [
+                            0.24703233,
+                            0.24348505,
+                            0.26158768
+                        ]
+                    },
+                    {
+                        "type": "Cutout",
+                        "length": 8
+                    }
+                ]
+            },
+            "val": {
+                "batch_size": 96,
+                "shuffle": false
+            },
+            "type": "Cifar10"
+        }
+    },
+    "abs_path": true
+}
+2024-12-14 03:30:32,918 INFO ------------------------------------------------
+2024-12-14 03:30:32,925 ERROR Failed to run pipeline, message: cannot import name 'defaultdict' from 'collections.abc' (/usr/lib/python3.10/collections/abc.py)
+2024-12-14 03:30:32,925 ERROR Traceback (most recent call last):
+  File "/rl/vega/vega/core/pipeline/pipeline.py", line 72, in run
+    PipeStepConfig.from_dict(step_cfg, skip_check=False)
+  File "/rl/vega/vega/core/pipeline/conf.py", line 91, in from_dict
+    cls = super(PipeStepConfig, cls).from_dict(data, skip_check)
+  File "/rl/vega/vega/common/config_serializable.py", line 76, in from_dict
+    setattr(cls, attr, class_value.from_dict(config_value, skip_check))
+  File "/rl/vega/vega/core/pipeline/conf.py", line 60, in from_dict
+    cls = super(SearchAlgorithmConfig, cls).from_dict(data, skip_check)
+  File "/rl/vega/vega/common/config_serializable.py", line 64, in from_dict
+    _load_link_config(cls, config)
+  File "/rl/vega/vega/common/config_serializable.py", line 134, in _load_link_config
+    config_cls = _get_specific_class_config(class_type, class_name)
+  File "/rl/vega/vega/common/config_serializable.py", line 151, in _get_specific_class_config
+    specific_class = ClassFactory.get_cls(class_type, class_name)
+  File "/rl/vega/vega/common/class_factory.py", line 192, in get_cls
+    if not cls.is_exists(type_name, t_cls_name) and t_cls_name is not None:
+  File "/rl/vega/vega/common/class_factory.py", line 155, in is_exists
+    cls._import_pkg(type_name, cls_name)
+  File "/rl/vega/vega/common/class_factory.py", line 170, in _import_pkg
+    __import__(pkg)
+  File "/rl/vega/vega/algorithms/nas/cars/__init__.py", line 1, in <module>
+    from .cars_alg import CARSAlgorithm
+  File "/rl/vega/vega/algorithms/nas/cars/cars_alg.py", line 26, in <module>
+    from vega.algorithms.nas.darts_cnn import DartsNetworkTemplateConfig
+  File "/rl/vega/vega/algorithms/nas/darts_cnn/__init__.py", line 3, in <module>
+    from .darts_trainer_callback import DartsTrainerCallback
+  File "/rl/vega/vega/algorithms/nas/darts_cnn/darts_trainer_callback.py", line 26, in <module>
+    from vega.core.search_space import SearchSpace
+  File "/rl/vega/vega/core/search_space/__init__.py", line 1, in <module>
+    from vega.core.search_space.ext_hyper_parameter import IntHyperParameter, FloatHyperParameter, \
+  File "/rl/vega/vega/core/search_space/ext_hyper_parameter.py", line 23, in <module>
+    from collections.abc import Iterable, defaultdict
+ImportError: cannot import name 'defaultdict' from 'collections.abc' (/usr/lib/python3.10/collections/abc.py)
+

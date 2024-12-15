@@ -18,10 +18,13 @@
 
 import traceback
 import logging
+import sys
+sys.path.append('/rl/vega/')
 from vega.trainer.utils import WorkerTypes
 from vega.common.general import General
 from vega.report import ReportClient
 from .master_base import MasterBase
+import torch
 
 
 class LocalMaster(MasterBase):
@@ -61,10 +64,37 @@ class LocalMaster(MasterBase):
 
         for worker in workers:
             try:
+                if torch.cuda.is_available()==True:
+                    num_devices = torch.cuda.device_count()
+                    print(f"Number of CUDA devices: {num_devices}")
+                    for device_id in range(num_devices):
+                        device_name = torch.cuda.get_device_name(device_id)
+                        print(f"Device ID: {device_id}, Device Name: {device_name}")
+
+                device = (
+                    "cuda"
+                    if torch.cuda.is_available()
+                    else "mps"
+                    if torch.backends.mps.is_available()
+                    else "cpu"
+                )
+
+                print(f"Local Master run Using {device} device")
+
                 worker.train_process()
             except Exception as e:
+                device = (
+                    "cuda"
+                    if torch.cuda.is_available()
+                    else "mps"
+                    if torch.backends.mps.is_available()
+                    else "cpu"
+                )
+
+                print(f"Using {device} device")
                 logging.debug(traceback.format_exc())
-                logging.error(f"Failed to run worker, id: {worker.worker_id}, message: {e}")
+                logging.error(f"Failed to run worker in local_master.py, id: {worker.worker_id}, message: {e}")
+                traceback.print_exc()
                 if not General.skip_trainer_error:
                     raise e
 

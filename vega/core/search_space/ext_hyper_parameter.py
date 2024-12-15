@@ -19,7 +19,11 @@
 import math
 import random
 from itertools import permutations
-from collections import Iterable, defaultdict
+# from collections import Iterable, defaultdict
+### modified by RZ
+from collections import defaultdict
+from collections.abc import Iterable
+### end of modification
 import numpy as np
 from .param_types import ParamTypes
 from .hyper_parameter import HyperParameter

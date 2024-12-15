@@ -49,6 +49,7 @@ class PipeStep(object):
 
     def do(self, *args, **kwargs):
         """Do the main task in this pipe step."""
+        print("PipeStep do args: ", args)
         pass
 
     def save_info(self):

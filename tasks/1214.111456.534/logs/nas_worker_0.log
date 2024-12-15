@@ -1,0 +1,55 @@
+2024-12-14 11:14:59,067 ERROR Failed to create instance:<class 'vega.networks.super_network.CARSDartsNetwork'>
+2024-12-14 11:14:59,068 ERROR Failed to get model, model_desc={'type': 'SearchSpace', 'super_network': {'type': 'CARSDartsNetwork', 'stem': {'type': 'PreOneStem', 'init_channels': 16, 'stem_multi': 3}, 'head': {'type': 'LinearClassificationHead'}, 'init_channels': 16, 'num_classes': 10, 'auxiliary': False, 'search': True, 'cells': {'modules': ['normal', 'normal', 'reduce', 'normal', 'normal', 'reduce', 'normal', 'normal'], 'normal': {'type': 'NormalCell', 'steps': 4, 'genotype': [[['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 2, 0], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 2, 1], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 3, 0], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 3, 1], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 3, 2], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 4, 0], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 4, 1], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 4, 2], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 4, 3], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 5, 0], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 5, 1], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 5, 2], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 5, 3], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 5, 4]], 'concat': [2, 3, 4, 5]}, 'reduce': {'type': 'ReduceCell', 'steps': 4, 'genotype': [[['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 2, 0], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 2, 1], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 3, 0], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 3, 1], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 3, 2], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 4, 0], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 4, 1], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 4, 2], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 4, 3], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 5, 0], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 5, 1], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 5, 2], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 5, 3], [['none', 'max_pool_3x3', 'avg_pool_3x3', 'skip_connect', 'sep_conv_3x3', 'sep_conv_5x5', 'dil_conv_3x3', 'dil_conv_5x5'], 5, 4]], 'concat': [2, 3, 4, 5]}}}, 'modules': ['super_network']}, msg=No CUDA GPUs are available
+2024-12-14 11:14:59,068 ERROR Failed to run pipeline, message: name 'torch' is not defined
+2024-12-14 11:14:59,068 ERROR Traceback (most recent call last):
+  File "/rl/vega/vega/core/scheduler/local_master.py", line 66, in run
+    worker.train_process()
+  File "/rl/vega/vega/common/wrappers.py", line 75, in wrapper
+    r = func(self, *args, **kwargs)
+  File "/rl/vega/vega/trainer/trainer_base.py", line 132, in train_process
+    self.callbacks.init_trainer()
+  File "/rl/vega/vega/trainer/callbacks/callback_list.py", line 129, in init_trainer
+    callback.init_trainer(logs)
+  File "/rl/vega/vega/trainer/callbacks/model_builder.py", line 43, in init_trainer
+    model = self._init_model()
+  File "/rl/vega/vega/trainer/callbacks/model_builder.py", line 58, in _init_model
+    return ModelZoo.get_model(**config)
+  File "/rl/vega/vega/model_zoo/model_zoo.py", line 68, in get_model
+    raise e
+  File "/rl/vega/vega/model_zoo/model_zoo.py", line 65, in get_model
+    model = NetworkDesc(model_desc).to_model()
+  File "/rl/vega/vega/networks/network_desc.py", line 39, in to_model
+    model = module.from_desc(self._desc)
+  File "/rl/vega/vega/modules/operators/functions/serializable.py", line 211, in from_desc
+    module = ClassFactory.get_instance(ClassType.NETWORK, module_desc)
+  File "/rl/vega/vega/common/class_factory.py", line 218, in get_instance
+    return cls._create_instance_params(params_sig, _params, extra_param, t_cls)
+  File "/rl/vega/vega/common/class_factory.py", line 242, in _create_instance_params
+    raise ex
+  File "/rl/vega/vega/common/class_factory.py", line 236, in _create_instance_params
+    instance = t_cls(**filter_params) if filter_params else t_cls()
+  File "/rl/vega/vega/networks/super_network.py", line 121, in __init__
+    super(CARSDartsNetwork, self).__init__(stem, cells, head, init_channels, num_classes, auxiliary, search,
+  File "/rl/vega/vega/networks/super_network.py", line 53, in __init__
+    self.build()
+  File "/rl/vega/vega/networks/super_network.py", line 57, in build
+    self.set_parameters('alphas_normal', 1e-3 * ops.random_normal(self.len_alpha, self.num_ops))
+  File "/rl/vega/vega/modules/operators/functions/pytorch_fn.py", line 146, in set_parameters
+    self.register_parameter(name, nn.Parameter(value.cuda()))
+  File "/usr/local/lib/python3.10/dist-packages/torch/cuda/__init__.py", line 319, in _lazy_init
+    torch._C._cuda_init()
+RuntimeError: No CUDA GPUs are available
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/rl/vega/vega/core/pipeline/pipeline.py", line 85, in run
+    pipestep.do()
+  File "/rl/vega/vega/core/pipeline/search_pipe_step.py", line 61, in do
+    self._dispatch_trainer(res)
+  File "/rl/vega/vega/core/pipeline/search_pipe_step.py", line 79, in _dispatch_trainer
+    self.master.run(trainer, evaluator)
+  File "/rl/vega/vega/core/scheduler/local_master.py", line 70, in run
+    if torch.cuda.is_available()
+NameError: name 'torch' is not defined
+

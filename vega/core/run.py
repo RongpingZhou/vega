@@ -67,8 +67,10 @@ def _run_pipeline():
     logging.info("-" * 48)
     logging.info("  task id: {}".format(General.task.task_id))
     logging.info("-" * 48)
+    logging.info("Hello Vega")
     logger.info("configure: %s", json.dumps(UserConfig().data, indent=4))
     logging.info("-" * 48)
+    logging.info("End Hello Vega")
     Pipeline().run()
 
 

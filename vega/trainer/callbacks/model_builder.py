@@ -40,8 +40,10 @@ class ModelBuilder(Callback):
         """Set trainer object for current callback."""
         model = self.trainer.model
         if not model:
+            print("_init_model()")
             model = self._init_model()
         if hasattr(model, "desc"):
+            print("inside init_trainer desc")
             self.trainer.model_desc = model.desc
         self.trainer.model = self._set_device(model)
 
@@ -60,6 +62,7 @@ class ModelBuilder(Callback):
     def _set_device(self, model):
         if vega.is_torch_backend():
             if vega.is_gpu_device():
+                print("model.cuda()")
                 model = model.cuda()
             elif vega.is_npu_device():
                 model = model.to(vega.get_devices())

@@ -48,6 +48,7 @@ class SearchPipeStep(PipeStep):
     def do(self):
         """Do the main task in this pipe step."""
         super().do()
+        print("SearchPipeStep do")
         logging.debug("SearchPipeStep started...")
 
         if hasattr(self.generator, "search_alg") and hasattr(self.generator.search_alg, "max_samples"):
@@ -58,9 +59,11 @@ class SearchPipeStep(PipeStep):
         while not self.generator.is_completed:
             res = self.generator.sample()
             if res:
+                print("inside res")
                 self._dispatch_trainer(res)
             else:
                 time.sleep(0.2)
+        print("right befor master join")
         self.master.join()
         logging.debug("Pareto_front values: %s", ReportServer().pareto_front(General.step_name))
         ReportServer().output_pareto_front(General.step_name)
@@ -68,6 +71,7 @@ class SearchPipeStep(PipeStep):
         if General.clean_worker_dir:
             self._clean_checkpoint()
         self.update_status(Status.finished)
+        print("end of SearchPipeStep do")
 
     def _dispatch_trainer(self, samples):
         for (id, desc, hps) in samples:

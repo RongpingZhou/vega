@@ -18,7 +18,10 @@
 
 import os
 import sys
+sys.path.append('/rl/vega/')
 from copy import deepcopy
+
+
 
 import vega
 from vega.common.general import General
@@ -27,6 +30,7 @@ from vega.common.utils import verify_requires, verify_platform_pkgs
 from vega.common.arg_parser import argment_parser, str2bool
 from vega import security
 
+import torch
 
 def _append_env():
     dir_path = os.getcwd()
@@ -81,6 +85,7 @@ def _parse_args():
                                help="slaves, eg. -sv n.n.n.n n.n.n.n")
     parser = security.add_args(parser)
     args = parser.parse_args()
+    # print("args: ", args)
     if args.security:
         security.check_args(args)
         security.check_yml(args.config_file)
@@ -126,6 +131,7 @@ def _get_backend_device(args):
             backend = config["general"]["backend"]
     if not device:
         config = Config(args.config_file)
+        print("config general is:", config["general"])
         if "general" in config and "device_category" in config["general"]:
             device = config["general"]["device_category"]
     if backend:
@@ -199,6 +205,7 @@ def main():
     """Run pipeline."""
     try:
         args = _parse_args()
+        print(f"args: {args}")
     except Exception as e:
         print(f"Parameter Error: {e}")
         return
@@ -214,6 +221,7 @@ def main():
     if not _check_platform_pkgs(backend, device):
         return
     vega.set_backend(backend, device)
+    # vega.set_backend(backend, "GPU")
     _append_env()
     config = Config(args.config_file, abs_path=True)
     if General.security:
@@ -243,4 +251,15 @@ def main():
 
 
 if __name__ == '__main__':
+
+    device = (
+        "cuda"
+        if torch.cuda.is_available()
+        else "mps"
+        if torch.backends.mps.is_available()
+        else "cpu"
+    )
+
+    print(f"Using {device} device")
+
     main()

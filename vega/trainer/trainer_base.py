@@ -127,12 +127,17 @@ class TrainerBase(DistributedWorker):
         """
         if self.standalone:
             logging.info("Standalone mode. The result data will not be sent to server through report.")
+        print("inside train process")
         self.init_env()
         self._init_callbacks()
+        print("before build1")
         self.callbacks.init_trainer()
+        print("after build")
         self.set_training_settings()
+        
         if not self.lazy_built:
             self.build()
+        
         self._train_loop()
         self.closeout()
         return self.model

@@ -188,6 +188,7 @@ class ModuleSerializable(Serializable):
     @classmethod
     def from_desc(cls, desc):
         """Create Model from desc."""
+        print("inside from_desc")
         desc = deepcopy(desc)
         module_groups = desc.get('modules', [])
         module_type = desc.get('type', 'Sequential')

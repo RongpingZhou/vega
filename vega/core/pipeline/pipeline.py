@@ -69,7 +69,10 @@ class Pipeline(object):
                 step_cfg = UserConfig().data.get(step_name)
                 General.step_name = step_name
                 PipeStepConfig.renew()
+                print(f"step_cfg: {step_cfg}")
                 PipeStepConfig.from_dict(step_cfg, skip_check=False)
+                # print(f"after step_cfg: {step_cfg}")
+                print("PipeStepConfig(): ", PipeStepConfig())
                 self._set_evaluator_config(step_cfg)
                 logging.info("-" * 48)
                 logging.info("  Step: {}".format(step_name))
@@ -82,7 +85,9 @@ class Pipeline(object):
 
                 pipestep = PipeStep(name=step_name)
                 self.steps.append(pipestep)
+                print("right before pipestep do")
                 pipestep.do()
+                print("after pipestep do")
         except Exception as e:
             logger.error(f"Failed to run pipeline, message: {e}")
             logger.error(traceback.format_exc())
