@@ -41,6 +41,7 @@ elif vega.is_tf_backend():
 logger = logging.getLogger(__name__)
 Genotype = namedtuple('Genotype', 'normal normal_concat reduce reduce_concat')
 
+# logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
 
 @ClassFactory.register(ClassType.SEARCH_ALGORITHM)
 class CARSAlgorithm(SearchAlgorithm):

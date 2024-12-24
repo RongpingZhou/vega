@@ -195,12 +195,15 @@ class ClassFactory(object):
         if not cls.is_exists(type_name, t_cls_name):
             raise ValueError("can't find class type {} class name {} in class registry".format(type_name, t_cls_name))
         # get class
+        print("class_factory.py: get_cls(): t_cls_name: ", t_cls_name)
         t_cls = cls.__registry__.get(type_name).get(t_cls_name)
+        # print("cls.__registry__: ", cls.__registry__)
         return t_cls
 
     @classmethod
     def get_instance(cls, type_name, params=None, **kwargs):
         """Get instance."""
+        # print("cls: ", cls)
         _params = deepcopy(params)
         if not _params:
             return
@@ -215,6 +218,7 @@ class ClassFactory(object):
         # remove extra params
         params_sig = sig(t_cls).parameters if isfunction(t_cls) else sig(t_cls.__init__).parameters
         extra_param = {k: v for k, v in _params.items() if k not in params_sig}
+        # print("extra_param: ", extra_param)
         return cls._create_instance_params(params_sig, _params, extra_param, t_cls)
 
     @classmethod
@@ -223,6 +227,7 @@ class ClassFactory(object):
             has_args = any('*' in str(v) and not str(v).startswith('**') for v in params_sig.values())
             has_kwargs = any('**' in str(v) for v in params_sig.values())
             filter_params = {k: v for k, v in _params.items() if k not in extra_param}
+            # print("filter_params: ", filter_params)
             if has_args and not has_kwargs:
                 # fun(*args)
                 return t_cls(*list(_params.values())) if list(_params.values()) else t_cls()
@@ -233,6 +238,9 @@ class ClassFactory(object):
                 # fun(**kwargs)
                 return t_cls(**_params)
             # fun(a, b, c=None)
+            print("no t_cls")
+            print(t_cls)
+            # print("**filter_params: ", **filter_params)
             instance = t_cls(**filter_params) if filter_params else t_cls()
             for k, v in extra_param.items():
                 setattr(instance, k, v)

@@ -37,6 +37,7 @@ elif vega.is_tf_backend():
 
 Genotype = namedtuple('Genotype', 'normal normal_concat reduce reduce_concat')
 
+# logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
 
 @ClassFactory.register(ClassType.CALLBACK)
 class CARSTrainerCallback(Callback):
@@ -70,6 +71,7 @@ class CARSTrainerCallback(Callback):
 
     def train_step(self, batch):
         """Replace the default train_step function."""
+        print("cars_trainer_callback.py: train_step()")
         self.trainer.model.train()
         input, target = batch
         self.trainer.optimizer.zero_grad()
@@ -86,7 +88,11 @@ class CARSTrainerCallback(Callback):
                     alpha = torch.from_numpy(self.search_alg.random_sample_path()).to(vega.get_devices())
             else:
                 alpha = alphas[i]
+            print("cars_trainer_callback.py: train_step(): alpha size: ", alpha.size())
+            print("cars_trainer_callback.py: train_step(): self.trainer", type(self.trainer))
+            print("cars_trainer_callback.py: train_step(): self.trainer.model", type(self.trainer.model))
             logits = self.trainer.model(input, alpha=alpha)
+            print("cars_trainer_callback.py: train_step(): after self.trainer.model")         
             loss = self.trainer.loss(logits, target)
             loss.backward(retain_graph=True)
             if self.epoch < self.alg_policy.warmup:

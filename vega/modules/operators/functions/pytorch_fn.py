@@ -158,9 +158,18 @@ class Module(nn.Module):
 
     def call(self, inputs=None, *args, **kwargs):
         """Call inputs."""
+        print("pytorch_fn.py: Module: call(): ")
+        # print("inside pytorch_fn args: ")
+        # print(args)
+        
         output = inputs
         models = self.children()
+        
         for model in models:
+            # print(model)
+            # for name, param in model.named_parameters():
+            #     if param.requires_grad:
+            #         print(f"Parameter: {name} | Size: {param.size()}")
             output = model(output, *args, **kwargs)
         return output
 
@@ -172,14 +181,20 @@ class Module(nn.Module):
 
     def forward(self, inputs=None, *args, **kwargs):
         """Call compiled function."""
+        # print("inside pytorch_fn forward function")
+        # for key, value in kwargs.items():
+        #     print(f"pytorch_fn.py: Module: forward(): {key}: {value}")
         if self._apply_once:
+            # print("pytorch_fn.py: Module: forward(): self.build()")
             self.build()
             if self.weight_file is not None:
                 logging.info("Start to load weight file : {}".format(self.weight_file))
                 self.load_state_dict(torch.load(self.weight_file))
             self._apply_once = False
         if inputs is None and kwargs:
+            print("pytorch_fn.py: Module: forward(): if inputs is None: call()")
             return self.call(**kwargs)
+        print("pytorch_fn.py: Module: forward(): call()")
         return self.call(inputs, *args, **kwargs)
 
 

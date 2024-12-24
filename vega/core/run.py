@@ -40,6 +40,7 @@ def run(cfg_path):
         sys.exit('Sorry, Python < 3.6 is not supported.')
     _init_env(cfg_path)
     _adjust_config()
+    print("run.py: run()")
     _run_pipeline()
 
 
@@ -64,11 +65,12 @@ def _init_env(cfg_path):
 
 def _run_pipeline():
     """Run pipeline."""
+    print("run.py: _run_pipeline()")
     logging.info("-" * 48)
     logging.info("  task id: {}".format(General.task.task_id))
     logging.info("-" * 48)
     logging.info("Hello Vega")
-    logger.info("configure: %s", json.dumps(UserConfig().data, indent=4))
+    # logger.info("configure: %s", json.dumps(UserConfig().data, indent=4))
     logging.info("-" * 48)
     logging.info("End Hello Vega")
     Pipeline().run()

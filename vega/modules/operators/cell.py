@@ -32,6 +32,7 @@ class Cell(ops.Module):
         """Init Cell."""
         super(Cell, self).__init__()
         self.genotype = genotype
+        # print("genotype: ", genotype)
         self.steps = steps
         self.concat = concat
         self.reduction = reduction
@@ -105,19 +106,33 @@ class Cell(ops.Module):
         :return: cell output
         :rtype: torch tensor
         """
+        # print("Cell call weights: ", weights)
+        print("cell.py: Cell: call(): Cell call self.steps: ", self.steps)
+        print("cell.py: Cell: call(): Cell call out_inp_list: ", self.out_inp_list)
+        print("cell.py: Cell: call(): preprocess0")
         s0 = self.preprocess0(s0)
+        print("cell.py: Cell: call(): preprocess1")
         s1 = self.preprocess1(s1)
         states = [s0, s1]
         idx = 0
         for i in range(self.steps):
             hlist = []
+            # print(f"Cell call out_inp_list[{i}]: {self.out_inp_list[i]}")
             for j, inp in enumerate(self.out_inp_list[i]):
+                print("cell.py: Cell: call(): j, inp: ", j, inp)
+                # z = idx + j
+                # print("cell.py: Cell: call(): j, inp, idx + j: ", j, inp, z)
+                # print("cell.py: Cell: call(): weights[idx + j]: ", weights[z])
                 op = self.oplist[idx + j]
+                print("cell.py: Cell: call(): op: ", op)
                 if selected_idxs is None:
                     if weights is None:
                         h = op(states[inp])
                     else:
+                        # z = idx + j
+                        # print("Cell call weights[idx + j]: ", z, weights[z])
                         h = op(states[inp], weights[idx + j])
+                        # print("h: ", h)
                     if drop_path_prob > 0. and not isinstance(list(op.children())[0], ops.Identity):
                         h = ops.drop_path(h, drop_path_prob)
                     hlist.append(h)

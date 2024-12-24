@@ -61,7 +61,9 @@ class ModelZoo(object):
         from vega.model_zoo.fusion import fuse
         if not model_desc:
             raise ValueError("model desc can't be None when create model.")
+        
         try:
+            # print(f"model description: {model_desc}")
             model = NetworkDesc(model_desc).to_model()
         except Exception as e:
             logging.error("Failed to get model, model_desc={}, msg={}".format(model_desc, str(e)))

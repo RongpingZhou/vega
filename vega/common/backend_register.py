@@ -40,7 +40,7 @@ def set_backend(backend='pytorch', device_category='GPU'):
     # CUDA visible
     if 'CUDA_VISIBLE_DEVICES' in os.environ:
         os.environ['DEVICE_CATEGORY'] = 'GPU'
-        print("using GPU")
+        # print("using GPU")
     elif 'NPU_VISIBLE_DEVICES' in os.environ:
         os.environ['DEVICE_CATEGORY'] = 'NPU'
 

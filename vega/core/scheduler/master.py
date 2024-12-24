@@ -128,6 +128,7 @@ class Master(MasterBase):
         :type worker: object that the class was inherited from DistributedWorker.
 
         """
+        print("master.py: inside run()")
         if worker is None:
             return
 

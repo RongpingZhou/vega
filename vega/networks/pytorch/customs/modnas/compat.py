@@ -46,4 +46,5 @@ class ModNasArchSpace(Module):
 
     def forward(self, *args, **kwargs):
         """Compute forward output."""
+        print("ModNasArchSpace forward")
         return self.net(*args, **kwargs)

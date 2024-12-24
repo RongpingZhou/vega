@@ -39,16 +39,19 @@ class SearchPipeStep(PipeStep):
         """Initialize."""
         super().__init__(*args, **kwargs)
         if not hasattr(self, "generator"):
+            # print("if not hasattr(self, "generator")")
             self.generator = Generator.restore()
         if not self.generator:
+            # print("if not self.generator")
             self.generator = Generator()
+        print("search_pipe_step.py: type of self.generator: ", type(self.generator))
         self.master = create_master(update_func=self.generator.update)
         self.user_trainer_config = TrainerConfig().to_dict()
 
     def do(self):
         """Do the main task in this pipe step."""
         super().do()
-        print("SearchPipeStep do")
+        # print("search_pipe_step.py: SearchPipeStep do")
         logging.debug("SearchPipeStep started...")
 
         if hasattr(self.generator, "search_alg") and hasattr(self.generator.search_alg, "max_samples"):
@@ -58,8 +61,9 @@ class SearchPipeStep(PipeStep):
 
         while not self.generator.is_completed:
             res = self.generator.sample()
+            print("search_pipe_step.py: res: ", res)
             if res:
-                print("inside res")
+                print("search_pipe_step.py: inside res")
                 self._dispatch_trainer(res)
             else:
                 time.sleep(0.2)
@@ -74,10 +78,20 @@ class SearchPipeStep(PipeStep):
         print("end of SearchPipeStep do")
 
     def _dispatch_trainer(self, samples):
+        print("search_pipe_step.py: PipeStepConfig.trainer.type: ", PipeStepConfig.trainer.type)
         for (id, desc, hps) in samples:
             cls_trainer = ClassFactory.get_cls(ClassType.TRAINER, PipeStepConfig.trainer.type)
+            # print("search_pipe_step.py: dir(cls_trainer): ", dir(cls_trainer))
+            # print("after cls_trainer")
+            print("search_pipe_step.py: self.user_trainer_config: ", self.user_trainer_config)
             TrainerConfig.from_dict(self.user_trainer_config)
+            
+            # print("search_pipe_step.py: desc: ", desc)
             trainer = cls_trainer(id=id, model_desc=desc, hps=hps)
+            print("search_pipe_step.py: after TrainerConfig")
+            # print("search_pipe_step.py: dir(trainer): ", dir(trainer))
+            for key, value in trainer.__dict__.items():
+                print(f"search_pipe_step.py: _dispatch_trainer(): {key}: {value}")
             evaluator = self._get_evaluator(trainer)
             logging.info("submit trainer, id={}".format(id))
             self.master.run(trainer, evaluator)
@@ -91,6 +105,7 @@ class SearchPipeStep(PipeStep):
             logging.warning("Get evaluator failed:{}".format(str(e)))
             raise e
         if cls_evaluator is not None:
+            # print("evaluator: ", evaluator)
             evaluator = cls_evaluator({
                 "step_name": General.step_name,
                 "worker_id": trainer.worker_id})

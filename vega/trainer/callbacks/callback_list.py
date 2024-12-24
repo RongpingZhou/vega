@@ -44,6 +44,7 @@ class CallbackList(object):
             # Get train_step if callback has defined one
             if type(callback).train_step != Callback.train_step:
                 if self.train_step is None:
+                    print("callback_list.py: if self.train_step is None: callback.train_step: ", callback.train_step)
                     self.train_step = callback.train_step
                 else:
                     raise ValueError("Multiple train_step are defined!")
@@ -73,6 +74,8 @@ class CallbackList(object):
                     raise ValueError("Multiple valid_input_fn are defined!")
 
     def _get_callbacks(self, customs, disables):
+        print("callback_list.py: __get_callbacks: customs: ", customs)
+        print("callback_list.py: __get_callbacks: disables: ", disables)
         defaults = []
         if vega.is_torch_backend():
             defaults = ["ModelStatistics", "MetricsEvaluator", "ModelCheckpoint", "ModelBuilder", "PerformanceSaver",

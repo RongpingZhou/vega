@@ -352,9 +352,11 @@ class Cells(Module):
 
     def _build(self, desc):
         """Build cell."""
+        print("connections.py: _build()")
         reduction_prev = True if self.C_curr == self.C_prev else False
         for idx, model_name in enumerate(desc.get('modules')):
             params = deepcopy(desc.get(model_name))
+            # print("params: ", params)
             if model_name == 'reduce':
                 self.C_curr *= 2
                 reduction = True
@@ -365,12 +367,15 @@ class Cells(Module):
             params['C_prev'] = self.C_prev
             params['C'] = self.C_curr
             reduction_prev = reduction
+            print("_build before model")
             model = ClassFactory.get_instance(ClassType.NETWORK, params)
+            print("_build after model")
             self.add_module(str(idx), model)
             concat_size = model.concat_size if hasattr(model, 'concat_size') else 1
             self.C_prev_prev, self.C_prev = self.C_prev, concat_size * self.C_curr
             if self.auxiliary and idx == self.auxiliary_layer:
                 self.C_aux = self.C_prev
+            print("connections.py: _build(): end")
 
     def output_channels(self):
         """Get output channels."""

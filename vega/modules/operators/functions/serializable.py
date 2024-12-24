@@ -194,6 +194,7 @@ class ModuleSerializable(Serializable):
         module_type = desc.get('type', 'Sequential')
         loss = desc.get('loss')
         if '_arch_params' in desc:
+            print("_arch_params")
             arch_params = desc.pop('_arch_params')
             arch_type = list(arch_params.keys())[0]
             ArchParams._arch_type = arch_type
@@ -204,9 +205,11 @@ class ModuleSerializable(Serializable):
             if not module_desc:
                 continue
             if 'modules' in module_desc:
+                print("moduel in module_desc")
                 module = cls.from_desc(module_desc)
             else:
                 cls_name = module_desc.get('type')
+                print(f"cls_name is {cls_name}")
                 if not ClassFactory.is_exists(ClassType.NETWORK, cls_name):
                     raise ValueError("Network {} not exists.".format(cls_name))
                 module = ClassFactory.get_instance(ClassType.NETWORK, module_desc)
@@ -222,11 +225,16 @@ class ModuleSerializable(Serializable):
             model = list(modules.values())[0] if len(modules) == 1 else connections(modules)
         if loss:
             model.add_loss(ClassFactory.get_cls(ClassType.LOSS, loss))
+        print("from_desc: ")
+        # for name, param in model.named_parameters():
+        #     if param.requires_grad:
+        #         print(f"Parameter: {name} | Size: {param.size()}")
         return model
 
     @classmethod
     def from_module(cls, module):
         """From Model."""
+        print("inside from_module" * 8)
         name = module.__class__.__name__
         if ClassFactory.is_exists(ClassType.NETWORK, name):
             module_cls = ClassFactory.get_cls(ClassType.NETWORK, name)

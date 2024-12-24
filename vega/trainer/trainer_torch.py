@@ -25,6 +25,7 @@ from vega.modules.loss import Loss
 from vega.trainer.modules.lr_schedulers import LrScheduler
 from vega.trainer.modules.optimizer import Optimizer
 from vega.common import ClassFactory, ClassType
+from torchsummary import summary
 
 
 @ClassFactory.register(ClassType.TRAINER)
@@ -74,6 +75,21 @@ class TrainerTorch(TrainerBase):
                 device_ids=[self.device_id],
                 broadcast_buffers=General.cluster.enable_broadcast_buffers
             )
+        print("model info: ")
+        # Iterate over the model's parameters and print their sizes
+        # for name, param in self.model.named_parameters():
+        #     if param.requires_grad:
+        #         print(f"Parameter: {name} | Size: {param.size()}")
+        # total_params = sum(param.numel() for param in self.model.parameters())
+        # print(f"Total number of parameters: {total_params}")
+        print(type(self.model))
+        # print("Attributes and methods: ", dir(self.model))
+        class_list = self.model.__class__
+        mro = class_list.__mro__
+        print("Inheritance hierarchy: ")
+        for c in mro:
+            print(c)
+        print("model info end")
 
     def set_training_settings(self):
         """Set trainer training setting."""
@@ -107,6 +123,7 @@ class TrainerTorch(TrainerBase):
             raise ValueError('Set a correct device: cuda or npu.')
 
     def _train_epoch(self):
+        print("trainer_torch.py: TrainerTorch: inside _train_epoch")
         self.model.train()
         for batch_index, batch in enumerate(self.train_loader):
             if self.config.max_train_steps and batch_index >= self.config.max_train_steps:
@@ -114,7 +131,9 @@ class TrainerTorch(TrainerBase):
             batch = self.make_batch(batch)
             batch_logs = {'train_batch': batch}
             self.callbacks.before_train_step(batch_index, batch_logs)
+            print("trainer_torch.py: TrainerTorch: before train_step")
             train_batch_output = self.train_step(batch)
+            print("trainer_torch.py: TrainerTorch: after train_step")
             batch_logs.update(train_batch_output)
             if self.config.is_detection_trainer:
                 batch_logs.update({'is_detection_trainer': True})
@@ -155,6 +174,7 @@ class TrainerTorch(TrainerBase):
         return data
 
     def _default_train_step(self, batch):
+        print("inside _default_train_step")
         self.optimizer.zero_grad()
         input, target = None, None
         if isinstance(batch, dict):
@@ -185,6 +205,7 @@ class TrainerTorch(TrainerBase):
                 torch.nn.utils.clip_grad_norm_(
                     self.model.parameters(), self.config.grad_clip)
             self.optimizer.step()
+        print("end of _default_train_step")
         return {'loss': loss.item(),
                 'train_batch_output': output,
                 'lr': self.lr_scheduler.get_lr()}
@@ -207,12 +228,14 @@ class TrainerTorch(TrainerBase):
                     scaled_loss.backward()
 
     def _multi_train_step(self, batch):
+        print("inside _multi_train_step")
         train_batch_output = None
         for opt_name, sub_opt in self.optimizer.get_opts():
             self.optimizer = sub_opt.get('opt')
             self.loss = sub_opt.get('loss')
             self.lr_scheduler = sub_opt.get('lr')
             train_batch_output = self._default_train_step(batch)
+        print("end of _multi_train_step")
         return train_batch_output
 
     def _default_valid_step(self, batch):

@@ -131,7 +131,7 @@ def _get_backend_device(args):
             backend = config["general"]["backend"]
     if not device:
         config = Config(args.config_file)
-        print("config general is:", config["general"])
+        print("run_pipeline.py: config general is:", config["general"])
         if "general" in config and "device_category" in config["general"]:
             device = config["general"]["device_category"]
     if backend:
@@ -205,9 +205,9 @@ def main():
     """Run pipeline."""
     try:
         args = _parse_args()
-        print(f"args: {args}")
+        print(f"run_pipeline.py: main(): args: {args}")
     except Exception as e:
-        print(f"Parameter Error: {e}")
+        print(f"run_pipeline.py: main(): Parameter Error: {e}")
         return
     _resume(args)
     if args.security:
@@ -221,7 +221,6 @@ def main():
     if not _check_platform_pkgs(backend, device):
         return
     vega.set_backend(backend, device)
-    # vega.set_backend(backend, "GPU")
     _append_env()
     config = Config(args.config_file, abs_path=True)
     if General.security:
@@ -247,6 +246,7 @@ def main():
     config = _modify_config(dict_args, config)
     _backup_config(args.config_file, config)
     _change_process_name()
+    # print("run_pipeline.py: main(): config: ", config)
     vega.run(config)
 
 
@@ -260,6 +260,6 @@ if __name__ == '__main__':
         else "cpu"
     )
 
-    print(f"Using {device} device")
+    print(f"run_pipeline.py: Using {device} device")
 
     main()

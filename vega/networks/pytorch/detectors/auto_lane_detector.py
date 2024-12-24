@@ -124,6 +124,7 @@ class AutoLaneDetector(Module):
         :return: losses
         :rtype: torch.tensor
         """
+        print("forward_train")
         image = input
         loc_targets = kwargs['gt_loc']
         cls_targets = kwargs['gt_cls']

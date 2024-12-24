@@ -41,8 +41,13 @@ class SearchSpace(dict):
     def __init__(self, desc=None):
         """Init SearchSpace."""
         super(SearchSpace, self).__init__()
+        print("search_space.py: SearchSpace desc: ", desc)
         if desc is None:
+            print("search_space.py")
+            print("*" * 80)
             desc = SearchSpaceConfig().to_dict()
+            print("*" * 80)
+            # print("search_space.py: SearchSpaceConfig().to_dict() desc: ", desc)
             if desc.type is not None and desc.type != 'SearchSpace':
                 cls = ClassFactory.get_cls(ClassType.SEARCHSPACE, desc.type)
                 desc = cls.get_space(desc)

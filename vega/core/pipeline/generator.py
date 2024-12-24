@@ -38,7 +38,10 @@ class Generator(object):
     def __init__(self):
         self.step_name = General.step_name
         self.search_space = SearchSpace()
+        print("generator.py self.search_space: ", self.search_space)
+        print("*" * 50)
         self.search_alg = SearchAlgorithm(self.search_space)
+        print("generator.py self.search_alg: ", self.search_alg)
         if hasattr(self.search_alg.config, 'objective_keys'):
             self.objective_keys = self.search_alg.config.objective_keys
 
@@ -53,7 +56,9 @@ class Generator(object):
         kwargs_list = []
         num_samples = 1
         for _ in range(10):
+            print("generator.py in range(10)")
             res = self.search_alg.search()
+            # print("generator.py in range(10) res: ", res)
             if not res:
                 return None
             if not isinstance(res, list):
@@ -66,6 +71,7 @@ class Generator(object):
                 decode_sample = self.search_alg.decode(sample) if hasattr(
                     self.search_alg, "decode") else self._get_hps_desc_from_sample(sample)
                 (worker_id, desc, hps, kwargs) = decode_sample + (dict(), ) * (4 - len(decode_sample))
+                print("generator.py in range(10) worker_id: ", worker_id)
                 if not vega.get_quota().verify_sample(desc) or not vega.get_quota().verify_affinity(desc):
                     continue
                 out.append((worker_id, desc, hps))
@@ -73,6 +79,7 @@ class Generator(object):
             if len(out) >= num_samples:
                 break
         for i in range(num_samples):
+            # print("generator.py in range(num_samples)")
             ReportClient().update(General.step_name, out[i][0], desc=out[i][1], hps=out[i][2], **kwargs_list[i])
         return out[:num_samples]
 
@@ -136,6 +143,7 @@ class Generator(object):
         :return:
         """
         record = ReportClient().get_record(step_name, worker_id)
+        print("generator.py: Get Record=%s", str(record))
         logging.debug("Get Record=%s", str(record))
         self.search_alg.update(record.serialize())
         ParameterSharing().remove()

@@ -29,6 +29,7 @@ class DartsNetwork(Module):
     def __init__(self, stem, cells, head, init_channels, num_classes, auxiliary, search, aux_size=8,
                  auxiliary_layer=13, drop_path_prob=0):
         """Create layers."""
+        print("super_network.py: DartsNetwork: __init__()")
         super(DartsNetwork, self).__init__()
         self.is_search = search
         self._auxiliary = auxiliary
@@ -89,6 +90,8 @@ class DartsNetwork(Module):
         :param input: An input tensor
         :type input: Tensor
         """
+        print("super_network.py: DartsNetwork: call()")
+        # print("self.len_alpha: ", self.len_alpha)
         s0, s1 = self.pre_stems(input)
         alphas_normal, alphas_reduce = self.alphas_normal, self.alphas_reduce
         if alpha is not None:
@@ -98,6 +101,8 @@ class DartsNetwork(Module):
             alphas_reduce = self.calc_alphas(alphas_reduce)
         logits_aux = None
         for i, cell in enumerate(self.cells_.children()):
+            print("super_network.py: DartsNetwork: call(): i: ", i, type(cell))
+            # print(cell)
             weights = None
             weights = alphas_reduce if cell.__class__.__name__ == 'NormalCell' and self.is_search else weights
             weights = alphas_normal if cell.__class__.__name__ == 'ReduceCell' and self.is_search else weights
@@ -105,6 +110,7 @@ class DartsNetwork(Module):
             if not self.is_search and self._auxiliary and i == self._auxiliary_layer:
                 logits_aux = self.auxiliary_head(s1)
         logits = self.head(s1)
+        print("super_network.py: DartsNetwork: call(): end")
         if logits_aux is not None:
             return logits, logits_aux
         else:
@@ -118,6 +124,7 @@ class CARSDartsNetwork(DartsNetwork):
     def __init__(self, stem, cells, head, init_channels, num_classes=10, auxiliary=False, search=True, aux_size=8,
                  auxiliary_layer=13, drop_path_prob=0.):
         """Init CARSDartsNetwork."""
+        print("super_network.py: CARSDartsNetwork: __init__()")
         super(CARSDartsNetwork, self).__init__(stem, cells, head, init_channels, num_classes, auxiliary, search,
                                                aux_size, auxiliary_layer, drop_path_prob)
 

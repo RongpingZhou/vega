@@ -42,6 +42,7 @@ class LocalMaster(MasterBase):
         :type worker: object that the class was inherited from DistributedWorker.
 
         """
+        print("local_master.py: inside run()")
         if worker is None:
             return
 
@@ -61,6 +62,9 @@ class LocalMaster(MasterBase):
                     workers.insert(0, sub_worker)
                 else:
                     workers.append(sub_worker)
+
+        for worker in workers:
+            print("local_master.py: run(): worker: ", worker)
 
         for worker in workers:
             try:

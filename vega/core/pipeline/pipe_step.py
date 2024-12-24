@@ -44,12 +44,14 @@ class PipeStep(object):
 
     def __new__(cls, *args, **kwargs):
         """Create pipe step instance by ClassFactory."""
+        print("PipeStepConfig.type: ", PipeStepConfig.type)
         t_cls = ClassFactory.get_cls(ClassType.PIPE_STEP, PipeStepConfig.type)
         return super().__new__(t_cls)
 
     def do(self, *args, **kwargs):
         """Do the main task in this pipe step."""
         print("PipeStep do args: ", args)
+        print("PipeStep do kwargs: ", kwargs)
         pass
 
     def save_info(self):

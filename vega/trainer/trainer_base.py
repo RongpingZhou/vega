@@ -32,6 +32,7 @@ from vega.common.general import General
 from vega.common.utils import update_dict
 from vega.common.wrappers import train_process_wrapper
 
+# logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
 
 class TrainerBase(DistributedWorker):
     """Trainer base class."""
@@ -42,6 +43,7 @@ class TrainerBase(DistributedWorker):
         super().__init__()
 
         self.config = TrainerConfig()
+        print("trainer_base.py: TrainerBase: inside __init__, self.config:", self.config)
         self.worker_type = WorkerTypes.TRAINER
         if id is not None:
             self._worker_id = id
@@ -127,12 +129,12 @@ class TrainerBase(DistributedWorker):
         """
         if self.standalone:
             logging.info("Standalone mode. The result data will not be sent to server through report.")
-        print("inside train process")
+        print("trainer_base.py: train_process(): inside train process")
         self.init_env()
         self._init_callbacks()
-        print("before build1")
+        print("trainer_base.py: train_process(): before build")
         self.callbacks.init_trainer()
-        print("after build")
+        print("trainer_base.py: train_process(): after build")
         self.set_training_settings()
         
         if not self.lazy_built:
@@ -260,6 +262,7 @@ class TrainerBase(DistributedWorker):
         """Do the training with data, callbacks and step functions etc."""
         # Allow user to build trainer in before_train() callback, but they
         # should set lazy_built in configuration file to True
+        print("***trainer_base.py: inside _train_loop()")
         self.callbacks.before_train()
         if self.skip_train:
             return
@@ -296,6 +299,7 @@ class TrainerBase(DistributedWorker):
             return epoch % self.valid_interval == 0 or (epoch + 1) == self.epochs
 
     def _init_callbacks(self):
+        print("trainer_base.py: inside _init_callbacks ")
         disables = []
         customs = self.config.callbacks or []
         if customs and not isinstance(customs, list):
@@ -303,6 +307,7 @@ class TrainerBase(DistributedWorker):
         if not self.config.model_statistics:
             disables.append('ModelStatistics')
         self.callbacks = CallbackList(customs, disables)
+        print("trainer_base.py: inside _init_callbacks: after CallbackList")
         self.callbacks.set_trainer(self)
 
     def _backup(self):

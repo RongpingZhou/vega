@@ -47,6 +47,8 @@ class Pipeline(object):
     def run(self):
         """Execute the whole pipeline."""
 
+        print("pipeline.py: run()")
+
         def _shutdown_cluster(signum, frame):
             logging.info("Shutdown urgently.")
             shutdown_cluster()
@@ -66,13 +68,17 @@ class Pipeline(object):
             signal.signal(signal.SIGINT, _shutdown_cluster)
             signal.signal(signal.SIGTERM, _shutdown_cluster)
             for step_name in PipelineConfig.steps:
+                print("Pipeline step_name: ", step_name)
                 step_cfg = UserConfig().data.get(step_name)
                 General.step_name = step_name
+                # print("pipeline.py: PipeStepConfig.renew(): ******************************")
                 PipeStepConfig.renew()
-                print(f"step_cfg: {step_cfg}")
+                # print(f"step_cfg: {step_cfg}")
+                # print("pipeline.py: PipeStepConfig.from_dict(): ******************************")
                 PipeStepConfig.from_dict(step_cfg, skip_check=False)
+                # print("pipeline.py: ******************************")
                 # print(f"after step_cfg: {step_cfg}")
-                print("PipeStepConfig(): ", PipeStepConfig())
+                # print("PipeStepConfig(): ", PipeStepConfig())
                 self._set_evaluator_config(step_cfg)
                 logging.info("-" * 48)
                 logging.info("  Step: {}".format(step_name))
@@ -85,9 +91,9 @@ class Pipeline(object):
 
                 pipestep = PipeStep(name=step_name)
                 self.steps.append(pipestep)
-                print("right before pipestep do")
+                print("pipeline.py: run(): right before pipestep do")
                 pipestep.do()
-                print("after pipestep do")
+                print("pipeline.py: run(): after pipestep do")
         except Exception as e:
             logger.error(f"Failed to run pipeline, message: {e}")
             logger.error(traceback.format_exc())

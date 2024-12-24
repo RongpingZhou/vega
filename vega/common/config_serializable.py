@@ -37,9 +37,13 @@ class ConfigSerializable(object):
 
     def to_dict(self):
         """Serialize config to a dictionary."""
+        # print("config_serializable.py: self type: ", type(self))
         attrs = [attr for attr in dir(self) if not attr.startswith("__")]
+        # print("1. attrs: ", attrs)
         attrs = [attr for attr in attrs if not ismethod(getattr(self, attr)) and not isfunction(getattr(self, attr))]
+        # print("2. attrs: ", attrs)
         attr_dict = {}
+        # print("attr_dict")
         for attr in attrs:
             value = getattr(self, attr)
             if isinstance(value, type) and isinstance(value(), ConfigSerializable):
@@ -47,35 +51,54 @@ class ConfigSerializable(object):
             elif isinstance(value, ConfigSerializable):
                 value = value.to_dict()
             attr_dict[attr] = value
+        # print("attr_dict: ", attr_dict)
         return Config(deepcopy(attr_dict))
 
     @classmethod
     def from_dict(cls, data, skip_check=True):
         """Restore config from a dictionary or a file."""
+        # print("config_serializable.py: inside from_dict")
         if not data:
+            # print("config_serializable.py: if not data:")
             return cls
         if cls.__name__ == "ConfigSerializable":
+            # print("config_serializable.py: cls.__name__ == ConfigSerializable")
             return cls
+        # print(data)
         config = Config(deepcopy(data))
+        # print("config_serializable.py: after config")
+        # print("***** config_serializable.py: config: ", config)
         if not skip_check:
+            # print("config_serializable.py: if not skip_check:")
             cls.check_config(config)
         # link config
         if _is_link_config(cls):
+            # print("config_serializable.py: if _is_link_config(cls)")
             _load_link_config(cls, config)
+            # print("config_serializable.py: if _is_link_config(cls), cls: ", cls)
+            # print("config_serializable.py: if _is_link_config(cls), leaving from_dict")
             return cls
         # normal config
+        attr_num = 0
         for attr in config:
+            if attr_num == 0:
+                # print("config_serializable.py: for attr in config:")
+                attr_num = 1
+            # print("config_serializable.py: for attr in config: attr: ", attr)
             if not hasattr(cls, attr):
                 if attr not in exclude_default:
                     logger.debug('{} not in default config ! Please check.'.format(attr))
                 setattr(cls, attr, config[attr])
-                continue
+                continue            
             class_value = getattr(cls, attr)
             config_value = config[attr]
+            # print("config_serializable.py: for attr in config: class_value and config_value: ", class_value, config_value)
             if isinstance(class_value, type) and isinstance(config_value, dict):
                 setattr(cls, attr, class_value.from_dict(config_value, skip_check))
             else:
                 setattr(cls, attr, config_value)
+        # print("config_serializable.py: for attr in config: cls: ", cls)
+        # print("config_serializable.py: leaving from_dict")
         return cls
 
     def __repr__(self):

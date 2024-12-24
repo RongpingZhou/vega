@@ -122,4 +122,5 @@ class Torch2Vega(Module):
 
     def call(self, inputs):
         """Forward of the network."""
+        print("Torch2Vega call")
         return self.vega_model(inputs)

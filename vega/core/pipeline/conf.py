@@ -32,10 +32,12 @@ class SearchSpaceConfig(ConfigSerializable):
     @classmethod
     def from_dict(cls, data, skip_check=True):
         """Restore config from a dictionary or a file."""
+        print("conf.py: SearchSpaceConfig: inside from_dict")
         cls = super(SearchSpaceConfig, cls).from_dict(data, skip_check)
         if "type" in data and not data["type"]:
             if hasattr(cls, "hyperparameters"):
                 del cls.hyperparameters
+        print("conf.py: SearchSpaceConfig: leaving from_dict")
         return cls
 
     @classmethod
@@ -88,12 +90,17 @@ class PipeStepConfig(ConfigSerializable):
     @classmethod
     def from_dict(cls, data, skip_check=True):
         """Restore config from a dictionary or a file."""
+        print("conf.py: PipeStepConfig: inside from_dict")
         cls = super(PipeStepConfig, cls).from_dict(data, skip_check)
+        print("conf.py: PipeStepConfig: inside from_dict after cls")
         if "pipe_step" in data:
             if "type" in data["pipe_step"]:
                 cls.type = data["pipe_step"]["type"]
+                print("conf.py: PipeStepConfig: inside from_dict after cls.type")
             if "models_folder" in data["pipe_step"]:
                 cls.models_folder = data["pipe_step"]["models_folder"]
+                print("conf.py: PipeStepConfig: inside from_dict after cls.models_folder")
+        print("conf.py: PipeStepConfig: leaving from_dict")
         return cls
 
     @classmethod

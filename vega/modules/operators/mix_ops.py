@@ -84,6 +84,7 @@ class MixedOp(ops.Module):
 
     def __init__(self, C, stride, ops_cands):
         """Init MixedOp."""
+        print("mix_ops.py: MixedOp: __init__()")
         super(MixedOp, self).__init__()
         if not isinstance(ops_cands, list):
             # train
@@ -101,10 +102,12 @@ class MixedOp(ops.Module):
         if selected_idx is None:
             if weights is None:
                 for model in self.children():
+                    print("mix_ops.py: MixedOp: call(): for model in self.children()")
                     x = model(x)
                 return x
             weight_sum = ()
             for idx, op in enumerate(self.children()):
+                print("mix_ops.py: MixedOp: call(): for idx, op in enumerate(self.children()): ", idx, op, type(op))
                 weight_sum += (weights[idx] * op(x),)
 
             return ops.add_n(weight_sum)
